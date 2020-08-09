@@ -1,23 +1,26 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
   addToReadingList,
   clearSearch,
   getAllBooks,
   ReadingListBook,
-  searchBooks
+  searchBooks,
+  removeFromReadingList,
+  getReadingList
 } from '@tmo/books/data-access';
 import { FormBuilder } from '@angular/forms';
-import { Book } from '@tmo/shared/models';
+import { Book, ReadingListItem } from '@tmo/shared/models';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'tmo-book-search',
   templateUrl: './book-search.component.html',
   styleUrls: ['./book-search.component.scss']
 })
-export class BookSearchComponent implements OnInit, OnDestroy {
+export class BookSearchComponent implements OnInit {
   books: ReadingListBook[];
-  booksSubscription: any
+  readingList$ = this.store.select(getReadingList);
 
   searchForm = this.fb.group({
     term: ''
@@ -25,7 +28,8 @@ export class BookSearchComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly store: Store,
-    private readonly fb: FormBuilder
+    private readonly fb: FormBuilder,
+    public snackBar: MatSnackBar
   ) {}
 
   get searchTerm(): string {
@@ -46,6 +50,15 @@ export class BookSearchComponent implements OnInit, OnDestroy {
 
   addBookToReadingList(book: Book) {
     this.store.dispatch(addToReadingList({ book }));
+    this.snackBar.open('added successfully');
+  }
+
+  removeFromReadingList(book: Book) {
+    
+    let item = {bookId: book.id}
+    // let book = this.readingList$.find(list => list.id === item.id)
+    this.store.dispatch(removeFromReadingList({ item }));
+    this.snackBar.open('removed successfully');
   }
 
   searchExample() {
@@ -59,9 +72,5 @@ export class BookSearchComponent implements OnInit, OnDestroy {
     } else {
       this.store.dispatch(clearSearch());
     }
-  }
-
-  ngOnDestroy(): void {
-    this.booksSubscription && this.booksSubscription.unsubscribe();
   }
 }

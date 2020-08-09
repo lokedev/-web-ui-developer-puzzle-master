@@ -25,4 +25,25 @@ describe('When: Use the search feature', () => {
 
     // TODO: Implement this test!
   });
+
+  it('Then: I should be able to see undo want to read action', async () => {
+    await browser.get('/');
+    await browser.wait(
+      ExpectedConditions.textToBePresentInElement($('tmo-root'), 'okreads')
+    );
+
+    const form = await $('form');
+    const input = await $('input[type="search"]');
+    await input.sendKeys('javascript');
+    await form.submit();
+    const wantToReadButton = await $('.want-to-read');
+    await wantToReadButton.click();
+
+    await browser.wait(
+      ExpectedConditions.textToBePresentInElement(
+        $('.want-to-delete'),
+        'Want to Delete'
+      )
+    );
+  });
 });
