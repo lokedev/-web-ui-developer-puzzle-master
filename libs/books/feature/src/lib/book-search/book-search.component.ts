@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
   addToReadingList,
@@ -18,9 +18,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './book-search.component.html',
   styleUrls: ['./book-search.component.scss']
 })
-export class BookSearchComponent implements OnInit {
+export class BookSearchComponent implements OnInit, OnDestroy {
   books: ReadingListBook[];
   readingList$ = this.store.select(getReadingList);
+  booksSubscription: any
 
   searchForm = this.fb.group({
     term: ''
@@ -72,5 +73,9 @@ export class BookSearchComponent implements OnInit {
     } else {
       this.store.dispatch(clearSearch());
     }
+  }
+
+  ngOnDestroy(): void {
+    this.booksSubscription && this.booksSubscription.unsubscribe();
   }
 }
