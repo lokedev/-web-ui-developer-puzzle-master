@@ -43,8 +43,8 @@ describe('Books Reducer', () => {
       expect(result.ids).to.eqls(['A', 'B']);
     });
 
-    it('failedRemoveFromReadingList should undo book removal from the state', () => {
-      const action = ReadingListActions.failedRemoveFromReadingList({
+    it('removeFromReadingList should remove book from the state', () => {
+      const action = ReadingListActions.removeFromReadingList({
         item: createReadingListItem('C')
       });
 
