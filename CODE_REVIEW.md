@@ -1,11 +1,16 @@
-code smells:
-1) Added Unsubscribe to avoid memory leakage in Book Search Component 
+Code Smells:
+
+Added Unsubscribe to avoid memory leakage in Book Search Component.
+Show no search results when item is not available.
 
 
 Accessibiltiy Issues:
-1) Aria-labels is missing to logo, Reading List button, Search textfield
-2) Added Tabindex to logo, Reading List button
+
+Aria-labels is missing to logo, Reading List button, Search textfield, Search Icon
+Added Tabindex to logo, Reading List button, Remove Book, Close button
 
 Improvements:
-1) Good to have Lazy loading to search results. 
-2) Implement Unsubcribe if we are moving from one component to another.
+
+show loader during search api call.
+Good to have Lazy loading to search results when there are more items. 
+Implement Unsubcribe if we are moving from one component to another.

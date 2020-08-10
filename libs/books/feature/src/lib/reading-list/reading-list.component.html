@@ -16,8 +16,7 @@
           mat-icon-button
           color="warn"
           [attr.aria-label]="'Remove ' + b.title + ' from reading list'"
-          (click)="removeFromReadingList(b)"
-        >
+          (click)="removeFromReadingList(b)">
           <mat-icon>remove_circle</mat-icon>
         </button>
         <button
@@ -25,11 +24,20 @@
           class="finish-reading"
           color="primary"
           [attr.aria-label]="'Done ' + b.title + ' from reading list'"
-          (click)="updateReadingList(b)"
-        >
+          (click)="updateReadingList(b)">
           <mat-icon>done</mat-icon>
         </button>
       </div>
+    </div>
+    <div>
+      <button
+        mat-icon-button
+        color="warn"
+        [attr.aria-label]="'Remove ' + b.title + ' from reading list'"
+        tabindex="0"
+        (click)="removeFromReadingList(b)">
+        <mat-icon>remove_circle</mat-icon>
+      </button>
     </div>
   </div>
 </ng-container>
